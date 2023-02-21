@@ -11,7 +11,11 @@ import SwiftUI
 struct Animated_Sticky_HeaderApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            NavigationStack {
+                HomeView()
+
+            }
+            .preferredColorScheme(.light)
         }
     }
 }
