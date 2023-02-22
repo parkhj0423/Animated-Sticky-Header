@@ -13,6 +13,7 @@ struct HomeView: View {
     
     @Namespace private var animation
     @State private var destinationBasedOnType : [[Destination]] = []
+    @State private var animationProgress : CGFloat = 0
     
     var body: some View {
         ScrollViewReader { scrollViewProxy in
@@ -66,7 +67,7 @@ struct HomeView: View {
         .id(destinations.type)
         .offset("CONTENTVIEW") { rect in
             let minY = rect.minY
-            if (minY < 30 && -minY < (rect.midY / 2) && activeTab != destinations.type) {
+            if (minY < 30 && -minY < (rect.midY / 2) && activeTab != destinations.type) && animationProgress == 0 {
                 withAnimation(.easeOut(duration: 0.3)) {
                     activeTab = (minY < 30 && -minY < (rect.midY / 2) && activeTab != destinations.type) ? destinations.type : activeTab
                 }
@@ -83,7 +84,7 @@ struct HomeView: View {
                 .padding(10)
                 .background {
                     RoundedRectangle(cornerRadius: 15, style: .continuous)
-                        .fill(Color.mint)
+                        .fill(Color.cyan)
                 }
             
             VStack(alignment: .leading, spacing : 8) {
@@ -123,15 +124,25 @@ struct HomeView: View {
                         }
                         .padding(.horizontal, 15)
                         .contentShape(Rectangle())
+                        .id(type.tabID)
                         .onTapGesture {
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 activeTab = type
+                                animationProgress = 1.0
                                 proxy.scrollTo(type, anchor : .topLeading)
                             }
                         }
                 }
             }
             .padding(.vertical, 15)
+            .onChange(of: activeTab) { newValue in
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    proxy.scrollTo(newValue.tabID, anchor: .center)
+                }
+            }
+            .checkAnimationEnd(for: animationProgress) {
+                animationProgress = 0.0
+            }
         }
         .background {
             Rectangle()
