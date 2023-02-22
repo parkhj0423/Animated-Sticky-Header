@@ -12,19 +12,23 @@ struct HomeView: View {
     @State private var activeTab: DestinationType = .sky
     
     @Namespace private var animation
+    @State private var destinationBasedOnType : [[Destination]] = []
     
     var body: some View {
         ScrollViewReader { scrollViewProxy in
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(spacing : 15, pinnedViews: [.sectionHeaders]) {
                     Section {
-                        
+                        ForEach(destinationBasedOnType, id : \.self) { destinations in
+                            destinationSectionView(destinations)
+                        }
                     } header: {
-                        scrollableTabs()
+                        scrollableTabs(scrollViewProxy)
                     }
                 }
             }
         }
+        .coordinateSpace(name: "CONTENTVIEW")
         .navigationTitle("Destination")
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarBackground(Color.blue, for: .navigationBar)
@@ -34,10 +38,73 @@ struct HomeView: View {
                 .fill(Color.white)
                 .ignoresSafeArea()
         }
+        .onAppear {
+            // 1번만 적용되기 위함
+            guard destinationBasedOnType.isEmpty else { return }
+            
+            for type in DestinationType.allCases {
+                let destinations = destinations.filter { $0.type == type }
+                destinationBasedOnType.append(destinations)
+            }
+
+        }
+    }
+    
+    private func destinationSectionView(_ destinations : [Destination]) -> some View {
+        VStack(alignment: .leading, spacing: 15) {
+            if let firstDestination = destinations.first {
+                Text(firstDestination.type.rawValue)
+                    .font(.title)
+                    .fontWeight(.semibold)
+            }
+            
+            ForEach(destinations) { destination in
+                destinationRowView(destination)
+            }
+        }
+        .padding(15)
+        .id(destinations.type)
+        .offset("CONTENTVIEW") { rect in
+            let minY = rect.minY
+            if (minY < 30 && -minY < (rect.midY / 2) && activeTab != destinations.type) {
+                withAnimation(.easeOut(duration: 0.3)) {
+                    activeTab = (minY < 30 && -minY < (rect.midY / 2) && activeTab != destinations.type) ? destinations.type : activeTab
+                }
+            }
+        }
+    }
+    
+    private func destinationRowView(_ destination : Destination) -> some View {
+        HStack(spacing: 15) {
+            Image(destination.image)
+                .resizable()
+                .clipShape(Circle())
+                .frame(width: 120, height: 120)
+                .padding(10)
+                .background {
+                    RoundedRectangle(cornerRadius: 15, style: .continuous)
+                        .fill(Color.mint)
+                }
+            
+            VStack(alignment: .leading, spacing : 8) {
+                Text(destination.title)
+                    .font(.title3)
+                
+                Text(destination.subTitle)
+                    .font(.callout)
+                    .foregroundColor(.gray)
+                
+                Text(destination.price)
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundColor(Color.blue)
+            }
+        }
+        .frame(maxWidth : .infinity, alignment: .leading)
     }
     
     @ViewBuilder
-    private func scrollableTabs() -> some View {
+    private func scrollableTabs(_ proxy : ScrollViewProxy) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing : 10) {
                 ForEach(DestinationType.allCases, id : \.rawValue) { type in
@@ -59,6 +126,7 @@ struct HomeView: View {
                         .onTapGesture {
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 activeTab = type
+                                proxy.scrollTo(type, anchor : .topLeading)
                             }
                         }
                 }

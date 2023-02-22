@@ -17,12 +17,12 @@ struct Destination : Identifiable, Hashable {
 }
 
 enum DestinationType : String, CaseIterable {
+    case sky = "Sky"
+    case waterfall = "WaterFall"
+    case sea = "Sea"
     case mountain = "Mountain"
     case rock = "Rock"
-    case sea = "Sea"
-    case sky = "Sky"
     case tree = "Tree"
-    case waterfall = "WaterFall"
 }
 
 var destinations : [Destination] = [
@@ -51,7 +51,6 @@ var destinations : [Destination] = [
     Destination(type: .waterfall, title: "waterFall3", subTitle: "waterFall3", price: "$399", image : "waterfall3"),
     Destination(type: .waterfall, title: "waterFall4", subTitle: "waterFall4", price: "$399", image : "waterfall4"),
     Destination(type: .waterfall, title: "waterFall5", subTitle: "waterFall5", price: "$399", image : "waterfall5"),
-    Destination(type: .waterfall, title: "waterFall6", subTitle: "waterFall6", price: "$1599", image : "waterfall6"),
 
     // mountain
     Destination(type: .mountain, title: "Mountain1", subTitle: "Mountain1", price: "$499", image : "mountain1"),
@@ -61,13 +60,13 @@ var destinations : [Destination] = [
     Destination(type: .mountain, title: "Mountain5", subTitle: "Mountain5", price: "$399", image : "mountain5"),
 
     // rock
-    Destination(type: .rock, title: "rock1", subTitle: "rock1", price: "$399", image : "mountain1"),
-    Destination(type: .rock, title: "rock2", subTitle: "rock2", price: "$4399", image : "mountain2"),
-    Destination(type: .rock, title: "rock3", subTitle: "rock3", price: "$199", image : "mountain3"),
-    Destination(type: .rock, title: "rock4", subTitle: "rock4", price: "$799", image : "mountain4"),
-    Destination(type: .rock, title: "rock5", subTitle: "rock5", price: "$599", image : "mountain5"),
-    Destination(type: .rock, title: "rock6", subTitle: "rock6", price: "$399", image : "mountain6"),
-    Destination(type: .rock, title: "rock7", subTitle: "rock7", price: "$99", image : "mountain7"),
+    Destination(type: .rock, title: "rock1", subTitle: "rock1", price: "$399", image : "rock1"),
+    Destination(type: .rock, title: "rock2", subTitle: "rock2", price: "$4399", image : "rock2"),
+    Destination(type: .rock, title: "rock3", subTitle: "rock3", price: "$199", image : "rock3"),
+    Destination(type: .rock, title: "rock4", subTitle: "rock4", price: "$799", image : "rock4"),
+    Destination(type: .rock, title: "rock5", subTitle: "rock5", price: "$599", image : "rock5"),
+    Destination(type: .rock, title: "rock6", subTitle: "rock6", price: "$399", image : "rock6"),
+    Destination(type: .rock, title: "rock7", subTitle: "rock7", price: "$99", image : "rock7"),
     
     // sea
     Destination(type: .sea, title: "sea1", subTitle: "sea1", price: "$1299", image : "sea1"),
