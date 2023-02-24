@@ -1,5 +1,8 @@
 # SwiftUI Animated Sticky Header
 
+![ezgif com-video-to-gif (1)](https://user-images.githubusercontent.com/50567986/221222798-0ae692ea-eb50-4320-856d-f95d4790dd63.gif)
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/50567986/221222845-8de55568-f361-4f34-9bc7-a213b5ef9a1e.gif)
+
 ### 1. matchedGeometryEffect로 Animated Tab 구현
 
 탭이 바뀔때마다 하단의 흰색 바가 자연스럽게 다른 탭으로 이동하는 애니메이션을 위해 matchedGeometryEffect을 사용하였다. 
@@ -34,8 +37,6 @@ ForEach(DestinationType.allCases, id : \.rawValue) { type in
 ### 2. 스크롤 위치에 따른 탭 상태 변경
 
 사용자가 스크롤한 스크롤뷰의 위치에 따라 현재 노출되고있는 Section에 맞는 탭으로 상단 탭의 상태를 변경해줄 것이다.
-
-![Untitled](Animated%20Sticky%20Header%2073bd26f37eae417ba76c81016384b686/Untitled.png)
 
 coordinateSpace에 지정한 name을 통해 현재 뷰의 좌표공간에 접근하여 사용이 가능하다.
 
