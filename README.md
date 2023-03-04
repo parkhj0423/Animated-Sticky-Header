@@ -1,7 +1,9 @@
 # SwiftUI Animated Sticky Header
 
-![ezgif com-video-to-gif (1)](https://user-images.githubusercontent.com/50567986/221222798-0ae692ea-eb50-4320-856d-f95d4790dd63.gif)
-![ezgif com-video-to-gif](https://user-images.githubusercontent.com/50567986/221222845-8de55568-f361-4f34-9bc7-a213b5ef9a1e.gif)
+<p align="center">
+<img width="200" height="400" src="https://user-images.githubusercontent.com/50567986/221222798-0ae692ea-eb50-4320-856d-f95d4790dd63.gif"/>
+<img width="200" height="400" src="https://user-images.githubusercontent.com/50567986/221222845-8de55568-f361-4f34-9bc7-a213b5ef9a1e.gif"/>
+</p>
 
 ### 1. matchedGeometryEffect로 Animated Tab 구현
 
